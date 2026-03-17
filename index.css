@@ -1,0 +1,41 @@
+div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 700px;
+}
+
+.caixa{
+    border-color: rgba(104, 26, 26, 0.658);
+    border-width: 6px;
+    border-style: dotted;
+    border-radius: 10px;
+    height: 450px;
+}
+
+h1{
+    border-bottom: solid black 2px;
+    font-size: 40px;
+    background-color: rgb(255, 234, 207);
+    border-radius: 10px;
+}
+
+p{
+    font-size: 25px;
+}
+
+.number{
+    color: rgba(156, 5, 5, 0.808);
+}
+
+button{
+    font-size: 20px;
+}
+
+button:hover{
+    background-color: black;
+    color: white;
+    transition: 1s;
+}
+
