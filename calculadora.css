@@ -9,7 +9,7 @@ body{
 .tudo{
     background-color: rgb(83, 83, 83);
     width: 380px;
-    height: 550px;
+    height: 580px;
     border: solid black 5px;
     border-radius: 20px;
     padding: 10px;
@@ -17,7 +17,7 @@ body{
 
 .mostrar{
     background-color: rgb(228, 228, 228);
-    height: 60px;
+    height: 90px;
     width: 380px;
     border-radius: 20px;
     display: flex;
@@ -56,3 +56,13 @@ body{
     justify-content: center;
 }
 
+input{
+    background-color: rgb(228, 228, 228);
+    height: 90px;
+    width: 372px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 40px;
+}
