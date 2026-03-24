@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>ERRO CRÍTICO</title>
+
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    margin-top: 100px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+}
+
+#erro {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    color:red;
+    font-family: Courier;
+    text-align:center;
+    padding-top:20%;
+}
+
+.tremer {
+    animation: tremer 0.1s infinite;
+}
+
+@keyframes tremer {
+    0% { transform: translate(2px, 2px); }
+    50% { transform: translate(-2px, -2px); }
+    100% { transform: translate(2px, -2px); }
+}
+
+/* flash */
+#flash {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:white;
+    z-index:999;
+}
+
+/* imagem BSOD */
+#bsod {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+h1{
+    font-size: 40px;
+}
+p{
+    font-size: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Simulador</h1>
+<button onclick="iniciar()">Clique aqui</button>
+
+<div id="erro">
+    <h1>ERRO 404</h1>
+    <p>DELETANDO PASTA "system 32"</p>
+    <p id="contador"></p>
+</div>
+
+<div id="flash"></div>
+
+<!-- Tela azul -->
+<img id="bsod" src="Tela-azul.webp">
+
+<script>
+function iniciar() {
+    const erro = document.getElementById("erro");
+    erro.style.display = "block";
+
+    let tempo = 5;
+    const contador = document.getElementById("contador");
+    contador.innerText = tempo;
+
+    const intervalo = setInterval(() => {
+        tempo--;
+        contador.innerText = tempo;
+
+        if (tempo <= 3) {
+            erro.classList.add("tremer");
+        }
+
+        if (tempo <= 0) {
+            clearInterval(intervalo);
+
+            const flash = document.getElementById("flash");
+            flash.style.display = "block";
+
+            setTimeout(() => {
+                flash.style.display = "none";
+                erro.style.display = "none";
+
+                // MOSTRA TELA AZUL
+                document.getElementById("bsod").style.display = "block";
+
+            }, 200);
+        }
+
+    }, 1000);
+}
+</script>
+
+</body>
+</html>
