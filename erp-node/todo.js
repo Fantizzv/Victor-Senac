@@ -43,7 +43,7 @@ function mostrarMenu() {
 function listarTarefas() {
   console.log("\n📋 Tarefas:");
   if (tarefas.length === 0) {
-    console.log("Nenhuma tarefa.");
+    console.log("Nenhuma tarefa."); 
   } else {
     tarefas.forEach((tarefa, index) => {
       console.log(
