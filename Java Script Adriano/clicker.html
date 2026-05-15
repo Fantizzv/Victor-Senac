@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="clicker.css">
+    <script src="clicker.js"></script>
+
+</head>
+<body>
+
+    <script src="clicker.js" defer></script>
+
+    <h1 id="contador">Número de Cookies: </h1>
+
+    <div class="tudoCookie">
+
+        <div class="conquistas">
+
+            <h1>Achievements:</h1>
+
+            <div id="caixa1" class="caixa1">
+                <span id="textoCaixa1">Atinja 100 cliques</span>
+            </div>
+
+            <div id="caixa2" class="caixa2">
+                <span id="textoCaixa2">Atinja 500 cliques</span>
+            </div>
+
+            <div id="caixa3" class="caixa3">
+                <span id="textoCaixa3">Atinja 1000 cliques</span>
+            </div>
+
+            <div id="caixa4" class="caixa4">
+                <span id="textoCaixa4">Atinja 5000 cliques</span>
+            </div>
+
+            <div id="caixa5" class="caixa5">
+                <span id="textoCaixa5">Atinja 10000 cliques</span>
+            </div>
+
+        </div>
+        
+        <!--Cookie-->
+        <button class="clicar" onclick="clicar(event)"> <img src = "image.png" class="biscoito"> </button>
+
+        <!--Upgrade-->
+        <div class="comprarCliques">
+
+            <h1>Multiplicador Mouse Click</h1>
+
+            <div class="organizarBotao">
+
+                <button class="multiBotao" onclick="comprar(2)">2x</button>
+                <p id="quantos2x"></p>
+
+                <button class="multiBotao" onclick="comprar(5)">5x</button>
+                <p id="quantos5x"></p>
+
+                <button class="multiBotao" onclick="comprar(10)">10x</button>
+                <p id="quantos10x"></p>
+
+                <button class="multiBotao" onclick="comprar(25)">25x</button>
+                <p id="quantos25x"></p>
+
+                <button class="multiBotao" onclick="comprar(50)">50x</button>
+                <p id="quantos50x"></p>
+
+                <button class="multiBotao" onclick="comprar(100)">100x</button>
+                <p id="quantos100x"></p>
+
+            </div>
+
+        </div>
+
+    </div>    
+
+</body>
+</html>

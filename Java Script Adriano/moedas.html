@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Conversor Global - Corporate Edition</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #2c3e50; color: #333; display: flex; justify-content: center; padding: 20px; }
+        .app-container { background: white; padding: 30px; border-radius: 15px; width: 450px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        h1 { font-size: 1.5rem; text-align: center; color: #2c3e50; margin-bottom: 25px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .field { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
+        .row { display: flex; gap: 10px; }
+        button { width: 100%; padding: 15px; background: #27ae60; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        button:hover { background: #219150; }
+        #resultado-box { margin-top: 20px; padding: 15px; background: #f1f2f6; border-radius: 8px; text-align: center; min-height: 50px; }
+        #resultado-valor { font-size: 1.8rem; font-weight: bold; color: #27ae60; }
+        .historico { margin-top: 20px; font-size: 0.85rem; border-top: 1px solid #eee; padding-top: 15px; }
+        ul { padding-left: 20px; color: #666; }  
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <h1>Global Currency Converter</h1>
+
+    <div class="field">
+        <label>Valor a converter:</label>
+        <input type="number" id="quantia" placeholder="0.00" step="0.01">
+    </div>
+
+    <div class="row">
+        <div class="field" style="flex: 1;">
+            <label>De:</label>
+            <select id="moeda-origem">
+                <option value="BRL">Real (BRL)</option>
+                <option value="USD">Dólar (USD)</option>
+                <option value="EUR">Euro (EUR)</option>
+                <option value="BTC">Bitcoin (BTC)</option>
+            </select>
+        </div>
+        <div class="field" style="flex: 1;">
+            <label>Para:</label>
+            <select id="moeda-destino">
+                <option value="USD">Dólar (USD)</option>
+                <option value="BRL">Real (BRL)</option>
+                <option value="EUR">Euro (EUR)</option>
+                <option value="BTC">Bitcoin (BTC)</option>
+            </select>
+        </div>
+    </div>
+
+    <button id="btn-converter">Calcular Conversão</button>
+
+    <div id="resultado-box">
+        <span id="resultado-valor">---</span>
+    </div>
+
+    <div class="historico">
+        <strong>Últimas Consultas:</strong>
+        <ul id="lista-historico"></ul>
+    </div>
+</div>
+
+<script>
+    // Simulação de banco de dados de taxas (Base: 1 USD)
+    const taxas = {
+        BRL: 5.20,
+        EUR: 0.92,
+        USD: 1.00,
+        BTC: 0.000015
+    };
+
+    const btn = document.getElementById("btn-converter");
+    const historico = [];
+
+    btn.addEventListener("click", function() {
+        const valor = parseFloat(document.getElementById("quantia").value);
+        const de = document.getElementById("moeda-origem").value;
+        const para = document.getElementById("moeda-destino").value;
+
+        // Validação de entrada
+        if (valor <= 0) {
+            alert("Apenas valores positivos");
+            return;
+        }
+        
+        if (isNaN(valor)) {
+            alert("Isso não é um valor válido")
+            return
+        }
+
+        // Lógica de conversão complexa
+        // Primeiro converte tudo para dólar, depois para a moeda final
+        let valorEmDolar = valor / taxas[de];
+        let resultadoFinal = valorEmDolar * taxas[para];
+
+        // Exibir na tela
+        document.getElementById("resultado-valor").innerText = resultadoFinal.toFixed(2);
+        console.log(resultadoFinal.toFixed(2))
+
+        // Atualizar ao histórico
+        atualizarHistorico(valor, de, para, resultadoFinal);
+    });
+
+    function atualizarHistorico(v, o, d, r) {
+        const lista = document.getElementById("lista-historico");
+        
+        const texto = v + " " + o + " equivale a " + r.toFixed(2) + " " +d;
+        historico.unshift(texto);
+
+        // Renderiza apenas os últimos 3
+        lista.innerHTML = ""; 
+        for (let i = 0; i < 5; i++) {
+            let li = document.createElement("li")
+            li.textContent = historico[i];
+            lista.appendChild(li)
+        }
+    }
+</script>
+
+</body>
+</html>

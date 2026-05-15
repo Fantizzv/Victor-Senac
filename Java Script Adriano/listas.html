@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        function calcularFatorial(n) {
+            let fatorial = 0
+
+            for (let i=1; i<= n; i++) {
+                fatorial = fatorial * i
+            }
+
+            return fatorial
+
+        }
+
+    </script>
+
+
+    <script>
+        function calcularFatorial(n) {
+            let fatorial = 1;
+
+            for (let x=1; x <= n; x++) {
+                fatorial = fatorial * x;
+            }
+
+            return fatorial;
+        }
+    </script>
+
+    <script>
+
+        const precos = [29.90, 9.90, 15.00, 105.00, 45.50]
+        let total = 0
+
+        for(let preco of precos) {
+            total = total + preco
+        }
+
+        console.log(total)
+
+    </script>
+    
+    <script>
+
+        // A sequência de Fibonacci
+
+        // Tarefa: Use um for clássico para
+        // calcular e exibir os primeiros
+        // 50 números da sequência.
+
+        //for clássico
+    let anterior = 0
+    let atual = 1
+
+    
+    for (let i = 0; i < 50; i++) {
+        let proximo = anterior + atual
+        console.log(proximo)
+
+        anterior = atual
+        atual = proximo
+    }
+    
+    </script>
+
+</body>
+</html>

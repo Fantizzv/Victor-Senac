@@ -1,12 +1,13 @@
 {
-  "name": "projeto.modelo",
+  "name": "projeto-modelo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node parte6/app.js",
+    "next" : "bash nova-parte.sh"
   },
   "keywords": [],
   "author": "",
   "license": "ISC"
-} 
+}

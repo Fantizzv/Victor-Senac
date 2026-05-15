@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        function verificarClima(temperatura){
+            if ( temperatura <= 15){
+                return "Está frio, leve um casaco."
+            } else if ( temperatura > 15 && temperatura <= 25 ) {
+                return "Clima agradável."
+            } else if ( temperatura > 25 ) {
+                return "Está calor, hidrate-se."
+            }
+        }
+
+
+        function validarLogin() {
+            
+            const usuarioCorreto = "Pedro";
+            const senhaCorreta = "123456";
+
+            usuario = prompt("Digite seu usuário: ")
+            senha = prompt("Digite sua senha: ")
+
+            if (usuario == usuarioCorreto && senha == senhaCorreta) {
+                return "Acesso permitido";
+            } else {
+                return "Usuário ou senha incorretos. Tente novamente.";
+            }
+        }
+
+    </script>
+
+    
+</body>
+</html>
