@@ -1,42 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="login.css">
+  <meta charset="UTF-8">
+  <title>Mecânica Gurisão Tec</title>
+  <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <div class="tudo">
 
-        <div class="cabeçario">
+    <img src="" alt="">
+    
+  <div class="container">
 
-                <h1>Seja Bem Vindo!</h1>
+    <!-- LADO DIREITO (LOGIN) -->
+    <div class="login-box">
+      <h2>Login:</h2>
 
-            <p>Para acessar o site Gurizão Tech, é necessário <label>Criar Uma Conta</label>. 
-                <br>
-                Siga os passos a seguir:
-            </p>
+        <input list="opcoes" id="opcao" placeholder="Área de atuação">
+        <datalist id="opcoes">
+        <option value="Admin">
+        <option value="Agendamentos">
+        <option value="Recursos humanos">
+        <option value="Marketing">
+        <option value="Contabilidade">
+        </option>
+        </datalist>
+      <input type="text" type="email" placeholder="Usuário">
+      <input type="password" placeholder="Senha">
 
-        </div>
-        
-        <div class="info">
-            Usuário: <input id="nome" type="text"> <br> <br>
-            Senha: <input id="senha" type="password"> <br> <br>
-        </div>
-        
-        <div class="caixa">
+      <p class="forgot">Esqueceu sua senha?</p>
 
-            <a href="">
-                <button onclick="sair()" class="sair">Sair</button>
-            </a> 
-            
-            <a href="">
-                <button onclick="enviar()" class="cadastrar">Cadastrar</button>
-            </a> 
+      <button>ENTRAR</button>
 
-        </div>
-
+      <p class="register">Registrar-se</p>
     </div>
+
+  </div>
+
 </body>
 </html>

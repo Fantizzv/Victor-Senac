@@ -1,83 +1,82 @@
-body{
-    background: linear-gradient( rgb(40, 40, 104) , rgba(40, 40, 104, 0.568));
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px;
-    height: 100vh;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.tudo{
-    padding: 40px;
-    background-color: #8198bb52;
-    width: 400px;
-    height: 350px;
-    border: 5px solid black;
-    border-radius: 40px;
+body {
+  height: 100vh;
 }
 
-.cabeçario{
-    align-items: center;
-    flex-direction: column;
-    display: flex;
+/* CONTAINER PRINCIPAL */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 60px;
 }
 
-h1{
-    color: rgb(255, 255, 255);
-    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.521); 
+/* BOX LOGIN */
+.login-box {
+  width: 400px;
+  padding: 40px;
+  border-radius: 25px;
+  background: rgba(50, 50, 50, 0.7);
+  backdrop-filter: blur(10px);
+  text-align: center;
 }
 
-p{
-    font-size: 20px;
-    font-weight: bold;
-    color: rgb(255, 255, 255);
-    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.219); 
+/* TÍTULO LOGIN */
+.login-box h2 {
+  color: #ff2c2c;
+  font-size: 40px;
+  margin-bottom: 30px;
+  text-align: left;
 }
 
-label{
-    color: rgb(224, 12, 12);
+/* INPUTS */
+.login-box input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 20px;
+  background: #2e2e2e;
+  color: white;
+  font-size: 16px;
 }
 
-.info{
-    font-size: 18px;
-    color: rgb(255, 255, 255);
-    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.219); 
+/* ESQUECEU SENHA */
+.forgot {
+  color: #ccc;
+  font-size: 14px;
+  text-align: left;
+  margin-bottom: 25px;
 }
 
-.caixa{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    height: 40px;
+/* BOTÃO */
+.login-box button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 20px;
+  background: #ff2c2c;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-a{
-    text-decoration: none;
+.login-box button:hover {
+  background: #cc2222;
 }
 
-.sair{
-    background-color: rgb(0, 0, 0);
-    color: white;
-    border: 2px solid rgb(255, 255, 255);
-    border-radius: 15px;
-    width: 60px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-}
-
-.cadastrar{
-    background-color: rgb(0, 0, 0);
-    color: white;
-    border: 2px solid rgb(255, 255, 255);
-    border-radius: 15px;
-    width: 80px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
+/* REGISTRAR */
+.register {
+  margin-top: 15px;
+  color: #ddd;
+  font-size: 14px;
+  cursor: pointer;
 }

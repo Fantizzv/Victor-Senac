@@ -1,19 +1,36 @@
-const clientes = require('./clientes');
+const menu = require('./menu');
+const moduloClientes = require('./clientes');
 
-const cliente1 = clientes.criarCliente(
-    "Victor Fanti",
-    "victorfanti670@gmail.com",
-    "VIP",
-);
+const minhasOpcoes = [
+      {
+        texto: "Cadastrar Cliente",
+        acao: (rs) => {
+            // Lógica Linear: Pergunta por pergunta, atribuídas diretamente a variáveis!
+            const nome = rs.question("Digite o Nome: ");
+            const email = rs.question("Digite o Email: ");
+            const cat = rs.question("Categoria (VIP/COMUM): ");
 
-const cliente2 = clientes.criarCliente(
-    "Victor Fanti2",
-    "antoniettivictor@hotmail.com",
-    "COMUM"
-)
-clientes.cadastrarCliente(cliente1);
-clientes.cadastrarCliente(cliente2);
+            const novoCliente = moduloClientes.criarCliente(nome, email, cat);
+            moduloClientes.cadastrarCliente(novoCliente);
+            
+            console.log("\n✅ Cliente cadastrado com sucesso!");
+            
+            // Note que a antiga chamada `retornar();` sumiu.
+        }
+    },
+    {
+        texto: "Listar Clientes",
+        acao: () => { // Função sem parâmetros
+            const lista = moduloClientes.listarClientes();
+            console.log("\n--- LISTA DE CLIENTES ---");
+            console.table(lista);
+            
+            // A antiga chamada `retornar();` também foi removida daqui!
+        }
+    }
+]
+// Criamos a variável antes do array de opções
+const tituloSistema = "Gestao Comercial Senac";
 
-const listaClientes = clientes.listarClientes ();
-
-console.table(listaClientes);
+// E chamamos ela para inicializar a aplicação no final do arquivo
+menu.criarMenu(tituloSistema, minhasOpcoes);

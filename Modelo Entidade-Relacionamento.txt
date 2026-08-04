@@ -1,0 +1,243 @@
+DDL
+
+-- Ativa a extensão necessária para gerar UUIDs
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- ==========================
+-- Tabela de Países
+-- ==========================
+CREATE TABLE countries (
+    id_country UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    country_name VARCHAR(100) NOT NULL UNIQUE,
+    continent VARCHAR(100) NOT NULL
+);
+
+-- ==========================
+-- Tabela de Setores
+-- ==========================
+CREATE TABLE sectors (
+    id_sector UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    sector_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- ==========================
+-- Tabela de Empresas
+-- ==========================
+CREATE TABLE companies (
+    id_company UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    company_name VARCHAR(150) NOT NULL,
+    id_country UUID NOT NULL,
+    id_sector UUID NOT NULL,
+
+    CONSTRAINT fk_company_country
+        FOREIGN KEY (id_country)
+        REFERENCES countries(id_country),
+
+    CONSTRAINT fk_company_sector
+        FOREIGN KEY (id_sector)
+        REFERENCES sectors(id_sector)
+);
+
+-- ==========================
+-- Tabela de Registros de Emissão
+-- ==========================
+CREATE TABLE emission_records (
+    id_record UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id_company UUID NOT NULL,
+    emission_year INT NOT NULL,
+    co2_emission_kt NUMERIC(12,2) NOT NULL,
+
+    CONSTRAINT fk_emission_company
+        FOREIGN KEY (id_company)
+        REFERENCES companies(id_company)
+);
+
+
+
+
+
+
+DML
+
+-- ==========================
+-- Countries
+-- ==========================
+INSERT INTO countries (country_name, continent) VALUES
+('Brasil', 'América do Sul'),
+('Estados Unidos', 'América do Norte'),
+('Alemanha', 'Europa');
+
+-- ==========================
+-- Sectors
+-- ==========================
+INSERT INTO sectors (sector_name) VALUES
+('Energia'),
+('Manufatura'),
+('Transporte'),
+('Agricultura');
+
+-- ==========================
+-- Companies
+-- ==========================
+INSERT INTO companies (company_name, id_country, id_sector)
+VALUES
+(
+'Petrobras',
+(SELECT id_country FROM countries WHERE country_name='Brasil'),
+(SELECT id_sector FROM sectors WHERE sector_name='Energia')
+),
+(
+'Vale',
+(SELECT id_country FROM countries WHERE country_name='Brasil'),
+(SELECT id_sector FROM sectors WHERE sector_name='Manufatura')
+),
+(
+'Tesla',
+(SELECT id_country FROM countries WHERE country_name='Estados Unidos'),
+(SELECT id_sector FROM sectors WHERE sector_name='Transporte')
+),
+(
+'ExxonMobil',
+(SELECT id_country FROM countries WHERE country_name='Estados Unidos'),
+(SELECT id_sector FROM sectors WHERE sector_name='Energia')
+),
+(
+'Volkswagen',
+(SELECT id_country FROM countries WHERE country_name='Alemanha'),
+(SELECT id_sector FROM sectors WHERE sector_name='Transporte')
+),
+(
+'BASF',
+(SELECT id_country FROM countries WHERE country_name='Alemanha'),
+(SELECT id_sector FROM sectors WHERE sector_name='Manufatura')
+);
+
+-- ==========================
+-- Emission Records
+-- ==========================
+
+-- Petrobras
+INSERT INTO emission_records (id_company, emission_year, co2_emission_kt)
+VALUES
+((SELECT id_company FROM companies WHERE company_name='Petrobras'),2022,3200.50),
+((SELECT id_company FROM companies WHERE company_name='Petrobras'),2023,3150.80),
+((SELECT id_company FROM companies WHERE company_name='Petrobras'),2024,3095.20);
+
+-- Vale
+INSERT INTO emission_records (id_company, emission_year, co2_emission_kt)
+VALUES
+((SELECT id_company FROM companies WHERE company_name='Vale'),2022,2400.00),
+((SELECT id_company FROM companies WHERE company_name='Vale'),2023,2350.70),
+((SELECT id_company FROM companies WHERE company_name='Vale'),2024,2280.40);
+
+-- Tesla
+INSERT INTO emission_records (id_company, emission_year, co2_emission_kt)
+VALUES
+((SELECT id_company FROM companies WHERE company_name='Tesla'),2022,980.10),
+((SELECT id_company FROM companies WHERE company_name='Tesla'),2023,940.60),
+((SELECT id_company FROM companies WHERE company_name='Tesla'),2024,900.30);
+
+-- ExxonMobil
+INSERT INTO emission_records (id_company, emission_year, co2_emission_kt)
+VALUES
+((SELECT id_company FROM companies WHERE company_name='ExxonMobil'),2022,4200.00),
+((SELECT id_company FROM companies WHERE company_name='ExxonMobil'),2023,4150.80),
+((SELECT id_company FROM companies WHERE company_name='ExxonMobil'),2024,4090.50);
+
+-- Volkswagen
+INSERT INTO emission_records (id_company, emission_year, co2_emission_kt)
+VALUES
+((SELECT id_company FROM companies WHERE company_name='Volkswagen'),2022,1800.20),
+((SELECT id_company FROM companies WHERE company_name='Volkswagen'),2023,1765.30),
+((SELECT id_company FROM companies WHERE company_name='Volkswagen'),2024,1705.90);
+
+
+
+DQL
+
+-- =========================================
+-- 1. Mapeamento Corporativo
+-- Nome da empresa, setor e país
+-- =========================================
+
+SELECT
+    c.company_name,
+    s.sector_name,
+    co.country_name
+FROM companies c
+INNER JOIN sectors s
+    ON c.id_sector = s.id_sector
+INNER JOIN countries co
+    ON c.id_country = co.id_country;
+
+-- =========================================
+-- 2. Empresas do setor Energia
+-- Ano e emissão, do mais recente ao mais antigo
+-- =========================================
+
+SELECT
+    c.company_name,
+    er.emission_year,
+    er.co2_emission_kt
+FROM companies c
+INNER JOIN sectors s
+    ON c.id_sector = s.id_sector
+INNER JOIN emission_records er
+    ON c.id_company = er.id_company
+WHERE s.sector_name = 'Energia'
+ORDER BY er.emission_year DESC;
+
+-- =========================================
+-- 3. País que mais emitiu CO2
+-- Soma total das emissões
+-- =========================================
+
+SELECT
+    co.country_name,
+    SUM(er.co2_emission_kt) AS total_emissions
+FROM countries co
+INNER JOIN companies c
+    ON co.id_country = c.id_country
+INNER JOIN emission_records er
+    ON c.id_company = er.id_company
+GROUP BY co.country_name
+ORDER BY total_emissions DESC;
+-- =========================================
+-- 4. Top 3 maiores emissores em 2024
+-- =========================================
+
+SELECT
+    co.country_name,
+    SUM(er.co2_emission_kt) AS total_emissions
+FROM countries co
+INNER JOIN companies c
+    ON co.id_country = c.id_country
+INNER JOIN emission_records er
+    ON c.id_company = er.id_company
+GROUP BY co.country_name
+ORDER BY total_emissions DESC
+LIMIT 3;
+
+-- ======================================
+-- EXTRA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-- ======================================
+
+-- 5. Média de emissão por setor
+SELECT
+    s.sector_name,
+    AVG(er.co2_emission_kt) AS media_emissao
+FROM sectors s
+INNER JOIN companies c
+ON s.id_sector = c.id_sector
+INNER JOIN emission_records er
+ON c.id_company = er.id_company
+GROUP BY s.sector_name
+ORDER BY media_emissao DESC;
+
+--6. Evolução histórica das emissões
+SELECT
+    emission_year,
+    SUM(co2_emission_kt) AS total_global
+FROM emission_records
+GROUP BY emission_year
+ORDER BY emission_year;
